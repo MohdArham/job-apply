@@ -335,6 +335,34 @@
       margin-top: 12px;
     }
 
+    /* Toast styles */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #141820;
+      color: #7aa8ff;
+      border: 1px solid #1e2a40;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 9999;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    html.light .toast {
+      background: #eef2ff;
+      color: #4338ca;
+      border-color: #c7d2fe;
+    }
+
     /* PWA install banner */
     #install-banner {
       display: none;
@@ -472,9 +500,20 @@
 
   </div>
 
+  <div id="toast" class="toast">📋 Email copied! Paste in 'To' field.</div>
+
   <script>
     let role = 'odoo';
     let deferredPrompt = null;
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
 
     /* ── Theme ── */
     function applyTheme(mode) {
@@ -651,6 +690,7 @@
             // Copy recipient to clipboard
             if (navigator.clipboard && navigator.clipboard.writeText) {
               await navigator.clipboard.writeText(to);
+              showToast("📋 Recipient email copied! Paste in 'To' field.");
             }
             await navigator.share(shareData);
             sendBtn.textContent = originalText;
@@ -675,6 +715,7 @@
       // 4. Fallback: standard mailto link
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(body).catch(() => {});
+        showToast("📋 Email body copied to clipboard.");
       }
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
