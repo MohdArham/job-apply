@@ -11,33 +11,35 @@
   <link rel="manifest" href="./manifest.json" />
   <title>Apply — Arham</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet" />
   <style>
     :root {
-      --bg: #0e0e0f;
-      --surface: #191a1c;
-      --border: #2a2b2e;
+      --bg: #09090b;
+      --surface: #18181b;
+      --border: #27272a;
       --accent: #5b6af7;
-      --text: #f0f0f0;
-      --muted: #7a7b80;
-      --note-bg: #141820;
-      --note-border: #1e2a40;
-      --note-text: #7aa8ff;
-      --note-strong: #aac4ff;
+      --accent-gradient: linear-gradient(135deg, #6366f1, #4f46e5);
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --note-bg: #0f172a;
+      --note-border: #1e293b;
+      --note-text: #60a5fa;
+      --note-strong: #93c5fd;
     }
 
     html.light {
-      --bg: #f5f5f3;
+      --bg: #f4f4f5;
       --surface: #ffffff;
-      --border: #e0e0dc;
-      --accent: #4a58e8;
-      --text: #111111;
-      --muted: #888884;
-      --note-bg: #eef2ff;
-      --note-border: #c7d2fe;
-      --note-text: #4338ca;
-      --note-strong: #3730a3;
+      --border: #e4e4e7;
+      --accent: #4f46e5;
+      --accent-gradient: linear-gradient(135deg, #4f46e5, #3730a3);
+      --text: #09090b;
+      --muted: #71717a;
+      --note-bg: #eff6ff;
+      --note-border: #dbeafe;
+      --note-text: #2563eb;
+      --note-strong: #1d4ed8;
     }
 
     * {
@@ -49,14 +51,14 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      padding: 0 0 80px;
+      padding: 0 0 calc(96px + env(safe-area-inset-bottom));
       transition: background 0.2s, color 0.2s;
     }
 
     header {
-      padding: 52px 24px 20px;
+      padding: 40px 24px 20px;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
@@ -64,29 +66,33 @@
     }
 
     .header-left .logo {
-      font-family: 'DM Mono', monospace;
+      font-family: 'Outfit', sans-serif;
       font-size: 11px;
-      color: var(--muted);
+      font-weight: 600;
+      color: var(--accent);
       letter-spacing: 0.15em;
       text-transform: uppercase;
       margin-bottom: 6px;
     }
 
     h1 {
-      font-size: 22px;
-      font-weight: 500;
-      letter-spacing: -0.3px;
+      font-size: 24px;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: -0.5px;
       color: var(--text);
     }
 
     h1 span {
-      color: var(--accent);
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     /* theme toggle */
     .theme-btn {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       border: 1px solid var(--border);
       background: var(--surface);
@@ -96,8 +102,12 @@
       justify-content: center;
       font-size: 18px;
       -webkit-tap-highlight-color: transparent;
-      transition: background 0.2s, border-color 0.2s;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
       flex-shrink: 0;
+    }
+    
+    .theme-btn:active {
+      transform: scale(0.92);
     }
 
     .form {
@@ -110,7 +120,8 @@
     .field label {
       display: block;
       font-size: 11px;
-      font-family: 'DM Mono', monospace;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
       color: var(--muted);
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -123,19 +134,20 @@
       width: 100%;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 13px 14px;
+      border-radius: 12px;
+      padding: 14px 16px;
       font-size: 15px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       color: var(--text);
       outline: none;
-      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
       -webkit-appearance: none;
     }
 
     input:focus,
     textarea:focus {
       border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
     }
 
     textarea {
@@ -145,6 +157,7 @@
 
     ::placeholder {
       color: var(--muted);
+      opacity: 0.7;
     }
 
     .role-grid {
@@ -154,35 +167,39 @@
     }
 
     .role-btn {
-      padding: 11px 6px;
-      border-radius: 10px;
+      padding: 12px 6px;
+      border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--surface);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
+      font-family: 'Outfit', sans-serif;
       cursor: pointer;
       color: var(--muted);
-      transition: all 0.18s;
+      transition: all 0.2s ease;
       text-align: center;
       -webkit-tap-highlight-color: transparent;
     }
 
     .role-btn.odoo.active {
-      background: #2a1f4a;
+      background: #231842;
       color: #c3b5ff;
-      border-color: #5b3fcc55;
+      border-color: #5b3fcc77;
+      box-shadow: 0 4px 12px rgba(91, 63, 204, 0.15);
     }
 
     .role-btn.py.active {
-      background: #0f2e25;
+      background: #09261a;
       color: #8ff0c8;
-      border-color: #8ff0c855;
+      border-color: #8ff0c877;
+      box-shadow: 0 4px 12px rgba(15, 46, 37, 0.15);
     }
 
     .role-btn.custom.active {
-      background: #1a1f2e;
+      background: #111a2e;
       color: #7aa8ff;
-      border-color: #3a5fff55;
+      border-color: #3a5fff77;
+      box-shadow: 0 4px 12px rgba(26, 31, 46, 0.15);
     }
 
     html.light .role-btn.odoo.active {
@@ -212,10 +229,10 @@
     .preview-box {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
+      border-radius: 12px;
+      padding: 16px;
       font-size: 13px;
-      color: var(--muted);
+      color: var(--text);
       line-height: 1.7;
       white-space: pre-wrap;
       font-family: 'DM Mono', monospace;
@@ -224,42 +241,66 @@
 
     .preview-label {
       font-size: 10px;
-      font-family: 'DM Mono', monospace;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
       color: var(--muted);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       margin-bottom: 6px;
     }
 
+    /* Sticky Action Bar at the Bottom */
+    .sticky-action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(9, 9, 11, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      padding: 16px 24px calc(16px + env(safe-area-inset-bottom));
+      z-index: 999;
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.4);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    html.light .sticky-action-bar {
+      background: rgba(244, 244, 245, 0.85);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.05);
+    }
+
     .send-btn {
       width: 100%;
       padding: 16px;
-      background: var(--accent);
+      background: var(--accent-gradient);
       color: #fff;
       border: none;
       border-radius: 12px;
       font-size: 16px;
-      font-weight: 500;
-      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
       cursor: pointer;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
       -webkit-tap-highlight-color: transparent;
-      transition: opacity 0.15s, transform 0.1s;
+      transition: transform 0.1s, opacity 0.15s, box-shadow 0.15s;
     }
 
     .send-btn:active {
-      opacity: 0.85;
-      transform: scale(0.98);
+      transform: scale(0.985);
+      box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
     }
 
     .file-picker-btn {
       width: 100%;
-      padding: 13px 14px;
+      padding: 14px 16px;
       background: var(--surface);
       border: 1px dashed var(--border);
       color: var(--muted);
-      border-radius: 10px;
-      font-size: 15px;
-      font-family: 'DM Sans', sans-serif;
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -268,30 +309,35 @@
       -webkit-tap-highlight-color: transparent;
       transition: all 0.2s, transform 0.1s;
     }
+
     .file-picker-btn:hover {
       border-color: var(--accent);
       color: var(--text);
+      background: rgba(99, 102, 241, 0.03);
     }
+
     .file-picker-btn:active {
       transform: scale(0.99);
     }
+
     .file-picker-btn.selected {
       border-style: solid;
-      background: #141820;
-      border-color: #5b6af755;
+      background: #0f172a;
+      border-color: #3b82f655;
       color: var(--note-text);
     }
+
     html.light .file-picker-btn.selected {
-      background: #ede9fe;
-      border-color: #8b5cf6;
-      color: #5b21b6;
+      background: #eff6ff;
+      border-color: #3b82f6;
+      color: #1d4ed8;
     }
 
     .note {
       background: var(--note-bg);
       border: 1px solid var(--note-border);
-      border-radius: 10px;
-      padding: 12px 14px;
+      border-radius: 12px;
+      padding: 14px;
       font-size: 12px;
       color: var(--note-text);
       line-height: 1.6;
@@ -338,18 +384,18 @@
     /* Toast styles */
     .toast {
       position: fixed;
-      bottom: 24px;
+      bottom: calc(100px + env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: #141820;
-      color: #7aa8ff;
-      border: 1px solid #1e2a40;
+      background: #0f172a;
+      color: #60a5fa;
+      border: 1px solid #1e293b;
       padding: 12px 24px;
       border-radius: 30px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       z-index: 9999;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       pointer-events: none;
       white-space: nowrap;
@@ -358,9 +404,9 @@
       transform: translateX(-50%) translateY(0);
     }
     html.light .toast {
-      background: #eef2ff;
-      color: #4338ca;
-      border-color: #c7d2fe;
+      background: #eff6ff;
+      color: #2563eb;
+      border-color: #dbeafe;
     }
 
     /* PWA install banner */
@@ -395,7 +441,7 @@
       border-radius: 8px;
       font-size: 13px;
       font-weight: 500;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
       cursor: pointer;
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
@@ -496,8 +542,10 @@
       <strong>How it works:</strong> Tap the button below to compose. If your browser supports it, the PDF will be attached automatically!
     </div>
 
-    <button class="send-btn" onclick="openGmail()">Open Gmail with this email →</button>
+  </div>
 
+  <div class="sticky-action-bar">
+    <button class="send-btn" onclick="openGmail()">Open Gmail with this email →</button>
   </div>
 
   <div id="toast" class="toast">📋 Email copied! Paste in 'To' field.</div>
