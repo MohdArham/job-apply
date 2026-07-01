@@ -1,5 +1,10 @@
-const CACHE = 'job-apply-v1';
-const ASSETS = ['./index.html', './manifest.json'];
+const CACHE = 'job-apply-v2';
+const ASSETS = [
+  './index.html',
+  './manifest.json',
+  './arham_odoo_2y.pdf',
+  './arham_python_2y.pdf'
+];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
@@ -15,6 +20,6 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request))
+    fetch(e.request).catch(() => caches.match(e.request))
   );
 });
