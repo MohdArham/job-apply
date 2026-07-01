@@ -7,6 +7,8 @@ A lightweight, mobile-first Progressive Web App (PWA) designed to compile and se
 ## 🚀 Key Features
 
 *   **Dynamic Role Selection:** Easily switch between pre-configured templates for **Odoo Developer** and **Python Backend Engineer** positions.
+*   **Sticky Bottom Action Bar:** Keeps the primary "Open Gmail" button locked to the bottom of the viewport with a beautiful glassmorphism blur and subtle shadow, making it instantly clickable without scrolling.
+*   **Premium UI & Typography:** Transformed the user interface using a modern combination of **Outfit** (headers) and **Inter** (content) fonts, rounded card designs, glowing button animations, and custom dashed file upload inputs.
 *   **Automatic Resume Attachment:** Leverages the native **Web Share API** on mobile devices to open Gmail with the corresponding PDF resume (`arham_odoo_2y.pdf` or `arham_python_2y.pdf`) pre-attached.
 *   **Smart Clipboard Sync:** Automatically copies the email body to your clipboard (as a backup) and the recipient's "To" address (so you can paste it directly when sharing).
 *   **Desktop Fallback:** Automatically detects desktop browsers and insecure HTTP contexts, falling back to a clean `mailto:` composing workflow with instructions to attach files manually.
