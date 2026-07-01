@@ -697,9 +697,16 @@
             sendBtn.disabled = false;
             return;
           } catch (err) {
-            alert(`Web Share aborted or failed: ${err.message}. Falling back to standard email.`);
             sendBtn.textContent = originalText;
             sendBtn.disabled = false;
+            
+            // On Android Chrome, selecting an app or dismissing the menu throws a 'Share canceled' error.
+            // We should exit silently here to prevent opening a duplicate mailto fallback.
+            if (err.name === 'AbortError' || err.message.toLowerCase().includes('cancel') || err.message.toLowerCase().includes('abort')) {
+              console.log("Web Share interface dismissed or completed.");
+              return;
+            }
+            console.warn("Web Share failed, falling back to mailto:", err);
           }
         } else {
           alert("The browser supports Web Share but refused this specific share payload (files + text size). Falling back to standard email.");
