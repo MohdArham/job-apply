@@ -625,9 +625,11 @@
           if (response.ok) {
             const blob = await response.blob();
             file = new File([blob], fileName, { type: 'application/pdf' });
+          } else {
+            alert(`Auto-fetch of ${fileName} returned HTTP status: ${response.status}. Please check if the file is pushed and the PWA cache is cleared.`);
           }
         } catch (e) {
-          console.warn("Auto-fetch resume failed:", e);
+          alert(`Auto-fetch resume failed: ${e.message}`);
         }
       }
 
@@ -655,10 +657,18 @@
             sendBtn.disabled = false;
             return;
           } catch (err) {
-            console.warn("Sharing aborted or failed, falling back to mailto link:", err);
+            alert(`Web Share aborted or failed: ${err.message}. Falling back to standard email.`);
             sendBtn.textContent = originalText;
             sendBtn.disabled = false;
           }
+        } else {
+          alert("The browser supports Web Share but refused this specific share payload (files + text size). Falling back to standard email.");
+        }
+      } else {
+        if (!file) {
+          console.warn("No resume file loaded, falling back to standard email.");
+        } else {
+          console.warn("Web Share API for files is not supported on this device/context, falling back to standard email.");
         }
       }
 
