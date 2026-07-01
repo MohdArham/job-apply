@@ -649,6 +649,17 @@
         if (!to) { alert('Please enter the recipient email.'); return; }
       }
 
+      // Copy recipient email to clipboard synchronously immediately on user gesture context
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(to)
+          .then(() => {
+            showToast("📋 Recipient email copied! Paste in 'To' field.");
+          })
+          .catch(err => {
+            console.warn("Failed to copy email: ", err);
+          });
+      }
+
       const fileInput = document.getElementById('resume-file');
       let file = null;
 
@@ -687,11 +698,6 @@
           sendBtn.disabled = true;
 
           try {
-            // Copy recipient to clipboard
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              await navigator.clipboard.writeText(to);
-              showToast("📋 Recipient email copied! Paste in 'To' field.");
-            }
             await navigator.share(shareData);
             sendBtn.textContent = originalText;
             sendBtn.disabled = false;
