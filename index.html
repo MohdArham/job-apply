@@ -15,31 +15,29 @@
     rel="stylesheet" />
   <style>
     :root {
-      --bg: #09090b;
-      --surface: #18181b;
-      --border: #27272a;
-      --accent: #5b6af7;
-      --accent-gradient: linear-gradient(135deg, #6366f1, #4f46e5);
+      --bg: #0a0a0a;
+      --surface: #131313;
+      --border: #232323;
+      --accent: #6366f1;
       --text: #f4f4f5;
-      --muted: #a1a1aa;
-      --note-bg: #0f172a;
-      --note-border: #1e293b;
-      --note-text: #60a5fa;
-      --note-strong: #93c5fd;
+      --muted: #8a8a8e;
+      --note-bg: var(--surface);
+      --note-border: var(--border);
+      --note-text: var(--muted);
+      --note-strong: var(--text);
     }
 
     html.light {
-      --bg: #f4f4f5;
+      --bg: #fafafa;
       --surface: #ffffff;
       --border: #e4e4e7;
       --accent: #4f46e5;
-      --accent-gradient: linear-gradient(135deg, #4f46e5, #3730a3);
       --text: #09090b;
       --muted: #71717a;
-      --note-bg: #eff6ff;
-      --note-border: #dbeafe;
-      --note-text: #2563eb;
-      --note-strong: #1d4ed8;
+      --note-bg: var(--surface);
+      --note-border: var(--border);
+      --note-text: var(--muted);
+      --note-strong: var(--text);
     }
 
     * {
@@ -53,7 +51,7 @@
       color: var(--text);
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      padding: 0 0 calc(96px + env(safe-area-inset-bottom));
+      padding: 0 0 calc(24px + env(safe-area-inset-bottom));
       transition: background 0.2s, color 0.2s;
     }
 
@@ -84,9 +82,7 @@
     }
 
     h1 span {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--accent);
     }
 
     /* theme toggle */
@@ -162,7 +158,7 @@
 
     .role-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
     }
 
@@ -181,43 +177,10 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .role-btn.odoo.active {
-      background: #231842;
-      color: #c3b5ff;
-      border-color: #5b3fcc77;
-      box-shadow: 0 4px 12px rgba(91, 63, 204, 0.15);
-    }
-
-    .role-btn.py.active {
-      background: #09261a;
-      color: #8ff0c8;
-      border-color: #8ff0c877;
-      box-shadow: 0 4px 12px rgba(15, 46, 37, 0.15);
-    }
-
-    .role-btn.custom.active {
-      background: #111a2e;
-      color: #7aa8ff;
-      border-color: #3a5fff77;
-      box-shadow: 0 4px 12px rgba(26, 31, 46, 0.15);
-    }
-
-    html.light .role-btn.odoo.active {
-      background: #ede9fe;
-      color: #5b21b6;
-      border-color: #8b5cf6;
-    }
-
-    html.light .role-btn.py.active {
-      background: #d1fae5;
-      color: #065f46;
-      border-color: #10b981;
-    }
-
-    html.light .role-btn.custom.active {
-      background: #dbeafe;
-      color: #1d4ed8;
-      border-color: #3b82f6;
+    .role-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
     }
 
     #custom-fields {
@@ -251,45 +214,23 @@
 
     /* Sticky Action Bar at the Bottom */
     .sticky-action-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(9, 9, 11, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-top: 1px solid var(--border);
-      padding: 16px 24px calc(16px + env(safe-area-inset-bottom));
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
       z-index: 999;
-      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.4);
       transition: background 0.2s, border-color 0.2s;
     }
 
-    html.light .sticky-action-bar {
-      background: rgba(244, 244, 245, 0.85);
-      border-top: 1px solid var(--border);
-      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.05);
-    }
-
-    .send-btn {
-      width: 100%;
-      padding: 16px;
-      background: var(--accent-gradient);
+    .role-btn.send-btn {
+      background: var(--accent);
       color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 600;
-      font-family: 'Outfit', sans-serif;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
-      -webkit-tap-highlight-color: transparent;
-      transition: transform 0.1s, opacity 0.15s, box-shadow 0.15s;
+      border-color: var(--accent);
     }
 
-    .send-btn:active {
-      transform: scale(0.985);
-      box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
+    .role-btn.send-btn:active {
+      transform: scale(0.97);
     }
 
     .file-picker-btn {
@@ -322,15 +263,8 @@
 
     .file-picker-btn.selected {
       border-style: solid;
-      background: #0f172a;
-      border-color: #3b82f655;
-      color: var(--note-text);
-    }
-
-    html.light .file-picker-btn.selected {
-      background: #eff6ff;
-      border-color: #3b82f6;
-      color: #1d4ed8;
+      border-color: var(--accent);
+      color: var(--text);
     }
 
     .note {
@@ -384,20 +318,19 @@
     /* Toast styles */
     .toast {
       position: fixed;
-      bottom: calc(100px + env(safe-area-inset-bottom));
+      bottom: calc(24px + env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%) translateY(20px);
       opacity: 0;
       visibility: hidden;
-      background: #0f172a;
-      color: #60a5fa;
-      border: 1px solid #1e293b;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
       padding: 12px 24px;
       border-radius: 30px;
       font-size: 13px;
       font-weight: 500;
       z-index: 9999;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s, visibility 0.3s;
       pointer-events: none;
       white-space: nowrap;
@@ -406,11 +339,6 @@
       transform: translateX(-50%) translateY(0);
       opacity: 1;
       visibility: visible;
-    }
-    html.light .toast {
-      background: #eff6ff;
-      color: #2563eb;
-      border-color: #dbeafe;
     }
 
     /* PWA install banner */
@@ -565,36 +493,9 @@
       padding: 2px 6px;
       border-radius: 6px;
       letter-spacing: 0.05em;
-    }
-    .role-badge.odoo {
-      background: #231842;
-      color: #c3b5ff;
-      border: 1px solid #5b3fcc33;
-    }
-    .role-badge.py {
-      background: #09261a;
-      color: #8ff0c8;
-      border: 1px solid #8ff0c833;
-    }
-    .role-badge.custom {
-      background: #111a2e;
-      color: #7aa8ff;
-      border: 1px solid #3a5fff33;
-    }
-    html.light .role-badge.odoo {
-      background: #ede9fe;
-      color: #5b21b6;
-      border: 1px solid #c084fc;
-    }
-    html.light .role-badge.py {
-      background: #d1fae5;
-      color: #065f46;
-      border: 1px solid #34d399;
-    }
-    html.light .role-badge.custom {
-      background: #dbeafe;
-      color: #1d4ed8;
-      border: 1px solid #60a5fa;
+      background: var(--bg);
+      color: var(--muted);
+      border: 1px solid var(--border);
     }
     
     .history-actions {
@@ -665,7 +566,7 @@
       max-height: 80vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
       transform: translateY(20px);
       transition: transform 0.25s ease;
     }
@@ -734,10 +635,18 @@
   <header>
     <div class="header-left">
       <div class="logo">Arham · Job Apply</div>
-      <h1>Send <span>application</span></h1>
     </div>
     <button class="theme-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">🌙</button>
   </header>
+
+  <div class="sticky-action-bar">
+    <div class="role-grid">
+      <button class="role-btn odoo active" onclick="setRole('odoo', this)">Odoo</button>
+      <button class="role-btn py" onclick="setRole('py', this)">Python</button>
+      <button class="role-btn custom" onclick="setRole('custom', this)">Custom</button>
+      <button class="role-btn send-btn" onclick="openGmail()">Send</button>
+    </div>
+  </div>
 
   <div class="form">
 
@@ -747,23 +656,14 @@
       <button class="dismiss-btn" onclick="dismissBanner()">✕</button>
     </div>
 
-    <div class="field">
-      <label>Type</label>
-      <div class="role-grid">
-        <button class="role-btn odoo active" onclick="setRole('odoo', this)">Odoo Dev</button>
-        <button class="role-btn py" onclick="setRole('py', this)">Python Backend</button>
-        <button class="role-btn custom" onclick="setRole('custom', this)">Custom</button>
-      </div>
-    </div>
-
     <!-- Template fields -->
     <div id="template-fields" style="display:flex;flex-direction:column;gap:16px;">
       <div class="field">
-        <label>Recipient email</label>
+        <label>EMAIL</label>
         <input type="email" id="to-email" placeholder="hr@company.com" oninput="refresh()" />
       </div>
       <div class="field">
-        <label>Recipient name <span style="color:var(--border)">(optional)</span></label>
+        <label>Name<span style="color:var(--border)">(optional)</span></label>
         <input type="text" id="to-name" placeholder="Hiring Team" oninput="refresh()" />
       </div>
       <div class="divider"></div>
@@ -801,15 +701,15 @@
 
     <!-- File picker field -->
     <div class="field" style="margin-bottom: 8px;">
-      <label>Resume PDF (Optional Attachment)</label>
+      <label>Resume PDF (Attachment)</label>
       <input type="file" id="resume-file" accept="application/pdf" onchange="onFileSelected(); refresh();" style="display: none;" />
       <button class="file-picker-btn" onclick="document.getElementById('resume-file').click()" id="file-label-btn">
-        <span>📎</span> Select custom resume PDF...
+        Select custom resume PDF...
       </button>
     </div>
 
     <div class="note">
-      <strong>How it works:</strong> Tap the button below to compose. If your browser supports it, the PDF will be attached automatically!
+      <strong>How it works:</strong> Tap Send above to compose. If your browser supports it, the PDF will be attached automatically!
     </div>
 
     <!-- History Section -->
@@ -833,10 +733,6 @@
 
   </div>
 
-  <div class="sticky-action-bar">
-    <button class="send-btn" onclick="openGmail()">Open Gmail with this email →</button>
-  </div>
-
   <div id="toast" class="toast">📋 Email copied! Paste in 'To' field.</div>
 
   <!-- Details Modal Dialog -->
@@ -858,12 +754,21 @@
     let role = 'odoo';
     let deferredPrompt = null;
 
+    let toastQueue = [];
+    let toastActive = false;
     function showToast(msg) {
+      toastQueue.push(msg);
+      if (!toastActive) processToastQueue();
+    }
+    function processToastQueue() {
+      if (toastQueue.length === 0) { toastActive = false; return; }
+      toastActive = true;
       const toast = document.getElementById('toast');
-      toast.textContent = msg;
+      toast.textContent = toastQueue.shift();
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
+        setTimeout(processToastQueue, 300);
       }, 4000);
     }
 
@@ -924,9 +829,9 @@
     function getBody() {
       const name = getName();
       if (role === 'odoo') {
-        return `Dear ${name},\n\nI hope this email finds you well.\n\nI am writing to express my interest in the Odoo Developer role at your organization. I am an Odoo / Python Developer with 2 years of experience designing, developing, and customizing cloud-native ERP solutions using the Odoo framework (v12/v16/v18).\n\nCurrently, I work as an Associate Software Developer at Binary Semantics Ltd. My technical experience includes:\n- Odoo ERP Customization: Designing custom modules, QWeb templates, and XML/JS views using Python ORM.\n- API & Integrations: Integrating third-party verification and tracking APIs (ULIP, PAN, DL, Google Maps) with backend platforms.\n- Data Engineering & Optimization: Architecting config-driven Airflow ETL pipelines and migrating file storage to AWS S3, reducing database size by 60%.\n- Cloud Infrastructure: Deploying and containerizing backend services on AWS EC2 using Docker and Jenkins CI/CD.\n\nI would welcome the opportunity to discuss how my background aligns with your team's requirements. Please find my resume attached for your review.\n\nThank you for your time and consideration. I look forward to hearing from you.\n\nWarm regards,\nMohammad Arham\nOdoo / Python Developer\n+91 9557385029`;
+        return `Dear ${name},\n\nI'm writing to apply for the Odoo Developer role at your organization. I have 2 years of experience building and customizing Odoo ERP solutions (v12/v16/v18) using Python, the ORM, and QWeb.\n\nAt Binary Semantics Ltd., I've delivered custom Odoo modules, integrated third-party APIs (PAN, DL, Google Maps), built config-driven Airflow ETL pipelines, and deployed containerized services on AWS EC2 — cutting database size by 60% via an S3 migration.\n\nMy resume is attached. I'd welcome the chance to discuss how I can contribute to your team.\n\nBest regards,\nMohammad Arham\nOdoo / Python Developer\n+91 9557385029`;
       }
-      return `Dear ${name},\n\nI hope this email finds you well.\n\nI am writing to express my interest in the Python Backend Engineer role. I am a Python Backend Engineer with 2 years of experience architecting scalable, cloud-native backend systems, high-performance REST APIs, and automated data pipelines.\n\nCurrently, I am working as an Associate Software Developer at Binary Semantics Ltd., where my core technical achievements include:\n- Backend & APIs: Engineering high-throughput asynchronous FastAPI microservices and Flask platforms (achieving sub-50ms p95 response times).\n- Data Engineering: Designing config-driven ETL pipelines using Apache Airflow to replicate PostgreSQL data to AWS Athena/Redshift, reducing latency to 15-minute near real-time intervals.\n- Cloud & Optimization: Migrating binary storage to AWS S3, reducing database size by 60%, and deploying containerized services (Docker/Jenkins CI/CD) behind Nginx on AWS EC2.\n- AI Integration: Integrating Rasa NLU chatbots with REST webhooks mapping user intents to business logic actions.\n\nI would welcome the opportunity to discuss how my skills and experience can contribute to your team. Please find my resume attached for your review.\n\nThank you for your time and consideration. I look forward to the possibility of connecting further.\n\nWarm regards,\nMohammad Arham\nPython Backend Engineer\n+91 9557385029`;
+      return `Dear ${name},\n\nI'm writing to apply for the Python Backend Engineer role. I have 2 years of experience building scalable backend systems, REST APIs, and automated data pipelines.\n\nAt Binary Semantics Ltd., I've built async FastAPI/Flask services with sub-50ms p95 latency, designed Airflow ETL pipelines replicating PostgreSQL to AWS Athena/Redshift in near real-time, migrated storage to S3 (cutting DB size by 60%), and integrated Rasa NLU chatbots via REST webhooks.\n\nMy resume is attached. I'd welcome the chance to discuss how I can contribute to your team.\n\nBest regards,\nMohammad Arham\nPython Backend Engineer\n+91 9557385029`;
     }
 
     function refresh() {
@@ -968,9 +873,9 @@
       const canShare = canShareFiles();
       
       if (canShare && (hasFile || !isCustom)) {
-        noteBox.innerHTML = `<strong>How it works:</strong> Tap the button below to open the share menu, then choose <strong>Gmail</strong>. The resume PDF will be attached, and the email pre-filled. The recipient email is copied to your clipboard—simply paste it into the <strong>To</strong> field!`;
+        noteBox.innerHTML = `<strong>How it works:</strong> Tap Send above to open the share menu, then choose <strong>Gmail</strong>. The resume PDF will be attached, and the email pre-filled. The recipient email is copied to your clipboard—simply paste it into the <strong>To</strong> field!`;
       } else {
-        noteBox.innerHTML = `<strong>How it works:</strong> Tap the button below to compose. The recipient, subject, and body will pre-fill (and the body will be copied to your clipboard as backup). In Gmail, tap the attachment icon (📎), choose your resume PDF, and send!`;
+        noteBox.innerHTML = `<strong>How it works:</strong> Tap Send above to compose. The recipient, subject, and body will pre-fill (and the body will be copied to your clipboard as backup). In Gmail, tap the attachment icon (📎), choose your resume PDF, and send!`;
       }
     }
 
@@ -1126,7 +1031,7 @@
       }
 
       listContainer.innerHTML = filtered.map(item => {
-        const roleLabel = item.role === 'odoo' ? 'Odoo Dev' : (item.role === 'py' ? 'Python Backend' : 'Custom');
+        const roleLabel = item.role === 'odoo' ? 'Odoo' : (item.role === 'py' ? 'Python' : 'Custom');
         const roleClass = item.role;
         const recipientName = item.name ? ` (${item.name})` : '';
         
@@ -1249,10 +1154,12 @@
             const blob = await response.blob();
             file = new File([blob], fileName, { type: 'application/pdf' });
           } else {
-            alert(`Auto-fetch of ${fileName} returned HTTP status: ${response.status}. Please check if the file is pushed and the PWA cache is cleared.`);
+            console.warn(`Auto-fetch of ${fileName} returned HTTP status: ${response.status}`);
+            showToast(`⚠️ Couldn't load ${fileName} (HTTP ${response.status})`);
           }
         } catch (e) {
-          alert(`Auto-fetch resume failed: ${e.message}`);
+          console.warn("Auto-fetch resume failed:", e);
+          showToast(`⚠️ Resume fetch failed: ${e.message}`);
         }
       }
 
@@ -1288,7 +1195,8 @@
             console.warn("Web Share failed, falling back to mailto:", err);
           }
         } else {
-          alert("The browser supports Web Share but refused this specific share payload (files + text size). Falling back to standard email.");
+          console.warn("Web Share refused this share payload (files + text size), falling back to standard email.");
+          showToast("⚠️ Share not supported for this file, using email fallback.");
         }
       } else {
         if (!file) {
