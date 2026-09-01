@@ -21,10 +21,6 @@
       --accent: #6366f1;
       --text: #f4f4f5;
       --muted: #8a8a8e;
-      --note-bg: var(--surface);
-      --note-border: var(--border);
-      --note-text: var(--muted);
-      --note-strong: var(--text);
     }
 
     html.light {
@@ -34,10 +30,6 @@
       --accent: #4f46e5;
       --text: #09090b;
       --muted: #71717a;
-      --note-bg: var(--surface);
-      --note-border: var(--border);
-      --note-text: var(--muted);
-      --note-strong: var(--text);
     }
 
     * {
@@ -267,22 +259,7 @@
       color: var(--text);
     }
 
-    .note {
-      background: var(--note-bg);
-      border: 1px solid var(--note-border);
-      border-radius: 12px;
-      padding: 14px;
-      font-size: 12px;
-      color: var(--note-text);
-      line-height: 1.6;
-      transition: background 0.2s;
-    }
-
-    .note strong {
-      color: var(--note-strong);
-    }
-
-    .divider {
+.divider {
       height: 1px;
       background: var(--border);
     }
@@ -389,244 +366,6 @@
       line-height: 1;
     }
 
-    /* History Section Styles */
-    .history-section {
-      margin-top: 12px;
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
-    }
-    .history-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      margin-bottom: 16px;
-    }
-    .history-header-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .history-title {
-      font-size: 16px;
-      font-weight: 600;
-      font-family: 'Outfit', sans-serif;
-    }
-    .count-badge {
-      font-size: 11px;
-      font-weight: 600;
-      background: var(--border);
-      color: var(--muted);
-      padding: 2px 8px;
-      border-radius: 20px;
-    }
-    .search-field {
-      margin-bottom: 16px;
-      display: none;
-    }
-    .history-container {
-      display: none;
-      flex-direction: column;
-      gap: 12px;
-      max-height: 400px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-    .history-container::-webkit-scrollbar {
-      width: 4px;
-    }
-    .history-container::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .history-container::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 4px;
-    }
-    
-    .history-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      position: relative;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .history-card:hover {
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-    html.light .history-card:hover {
-      border-color: rgba(0, 0, 0, 0.15);
-    }
-    
-    .history-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .history-card-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      flex: 1;
-    }
-    .history-card-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      word-break: break-all;
-    }
-    .history-card-date {
-      font-size: 11px;
-      color: var(--muted);
-    }
-    
-    .role-badge {
-      font-size: 10px;
-      font-weight: 600;
-      font-family: 'Outfit', sans-serif;
-      text-transform: uppercase;
-      padding: 2px 6px;
-      border-radius: 6px;
-      letter-spacing: 0.05em;
-      background: var(--bg);
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-    
-    .history-actions {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 12px;
-      border-top: 1px solid var(--border);
-      padding-top: 8px;
-      margin-top: 4px;
-    }
-    .action-btn-sm {
-      background: none;
-      border: none;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: color 0.15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .action-btn-sm:hover {
-      color: var(--text);
-    }
-    .action-btn-sm.delete-btn:hover {
-      color: #ef4444;
-    }
-    
-    .empty-state {
-      text-align: center;
-      padding: 32px 16px;
-      color: var(--muted);
-      font-size: 13px;
-      border: 1px dashed var(--border);
-      border-radius: 12px;
-    }
-    
-    /* Modal Dialog Styles */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 24px;
-      z-index: 1001;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-    .modal-overlay.open {
-      display: flex;
-      opacity: 1;
-    }
-    .modal-container {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 500px;
-      max-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-      transform: translateY(20px);
-      transition: transform 0.25s ease;
-    }
-    .modal-overlay.open .modal-container {
-      transform: translateY(0);
-    }
-    .modal-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .modal-title {
-      font-size: 16px;
-      font-weight: 600;
-      font-family: 'Outfit', sans-serif;
-      color: var(--text);
-    }
-    .modal-close-btn {
-      background: none;
-      border: none;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 20px;
-      line-height: 1;
-      padding: 4px;
-    }
-    .modal-body {
-      padding: 20px;
-      overflow-y: auto;
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--text);
-      white-space: pre-wrap;
-      font-family: 'DM Mono', monospace;
-    }
-    .modal-footer {
-      padding: 12px 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-    }
-    .modal-btn {
-      padding: 8px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      cursor: pointer;
-      font-size: 13px;
-      font-family: 'Outfit', sans-serif;
-      transition: all 0.15s;
-    }
-    .modal-btn.primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
   </style>
 </head>
 
@@ -708,47 +447,9 @@
       </button>
     </div>
 
-    <div class="note">
-      <strong>How it works:</strong> Tap Send above to compose. If your browser supports it, the PDF will be attached automatically!
-    </div>
-
-    <!-- History Section -->
-    <div class="history-section">
-      <div class="history-header" onclick="toggleHistory()">
-        <div class="history-header-left">
-          <span class="history-title">Application History</span>
-          <span class="count-badge" id="history-count">0</span>
-        </div>
-        <span class="toggle-arrow" id="history-arrow">▼</span>
-      </div>
-      
-      <div class="search-field" id="search-container">
-        <input type="text" id="search-input" placeholder="🔍 Search by company, role or email..." oninput="onSearchInput()" />
-      </div>
-
-      <div class="history-container" id="history-list">
-        <div class="empty-state">No applications sent yet. Your history will appear here.</div>
-      </div>
-    </div>
-
   </div>
 
-  <div id="toast" class="toast">📋 Email copied! Paste in 'To' field.</div>
-
-  <!-- Details Modal Dialog -->
-  <div id="details-modal" class="modal-overlay" onclick="onModalOverlayClick(event)">
-    <div class="modal-container">
-      <div class="modal-header">
-        <div class="modal-title" id="modal-title">Application Details</div>
-        <button class="modal-close-btn" onclick="closeModal()">✕</button>
-      </div>
-      <div class="modal-body" id="modal-body"></div>
-      <div class="modal-footer">
-        <button class="modal-btn" onclick="closeModal()">Close</button>
-        <button class="modal-btn primary" id="modal-copy-btn">Copy Text</button>
-      </div>
-    </div>
-  </div>
+  <div id="toast" class="toast"></div>
 
   <script>
     let role = 'odoo';
@@ -821,6 +522,12 @@
 
     function getName() { return document.getElementById('to-name').value.trim() || 'Hiring Team'; }
 
+    function clearFields() {
+      document.getElementById('to-email').value = '';
+      document.getElementById('to-name').value = '';
+      refresh();
+    }
+
     function getSubject() {
       if (role === 'odoo') return 'Application for Odoo Developer Position';
       return 'Application for Python Backend Developer Position';
@@ -839,7 +546,6 @@
         document.getElementById('prev-subject').textContent = getSubject();
         document.getElementById('prev-body').textContent = getBody();
       }
-      updateNote();
     }
     
     function onFileSelected() {
@@ -864,21 +570,6 @@
       }
     }
 
-    function updateNote() {
-      const noteBox = document.querySelector('.note');
-      const fileInput = document.getElementById('resume-file');
-      const hasFile = fileInput && fileInput.files.length > 0;
-      const isCustom = role === 'custom';
-      
-      const canShare = canShareFiles();
-      
-      if (canShare && (hasFile || !isCustom)) {
-        noteBox.innerHTML = `<strong>How it works:</strong> Tap Send above to open the share menu, then choose <strong>Gmail</strong>. The resume PDF will be attached, and the email pre-filled. The recipient email is copied to your clipboard—simply paste it into the <strong>To</strong> field!`;
-      } else {
-        noteBox.innerHTML = `<strong>How it works:</strong> Tap Send above to compose. The recipient, subject, and body will pre-fill (and the body will be copied to your clipboard as backup). In Gmail, tap the attachment icon (📎), choose your resume PDF, and send!`;
-      }
-    }
-
     refresh();
 
     function togglePreview() {
@@ -889,223 +580,6 @@
       arrow.classList.toggle('open', !open);
       refresh();
     }
-
-    let isHistoryOpen = false;
-
-    // IndexedDB Setup & Helpers
-    const DB_NAME = 'JobApplyDB';
-    const DB_VERSION = 1;
-    const STORE_NAME = 'applications';
-
-    function openDB() {
-      return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-        request.onerror = () => reject(request.error);
-        request.onsuccess = () => resolve(request.result);
-        request.onupgradeneeded = (e) => {
-          const db = e.target.result;
-          if (!db.objectStoreNames.contains(STORE_NAME)) {
-            const store = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
-            store.createIndex('role', 'role', { unique: false });
-            store.createIndex('timestamp', 'timestamp', { unique: false });
-          }
-        };
-      });
-    }
-
-    async function addApplication(app) {
-      try {
-        const db = await openDB();
-        return new Promise((resolve, reject) => {
-          const transaction = db.transaction(STORE_NAME, 'readwrite');
-          const store = transaction.objectStore(STORE_NAME);
-          const request = store.add(app);
-          request.onsuccess = () => resolve(request.result);
-          request.onerror = () => reject(request.error);
-        });
-      } catch (e) {
-        console.error("Failed to add app to DB:", e);
-      }
-    }
-
-    async function getApplications() {
-      try {
-        const db = await openDB();
-        return new Promise((resolve, reject) => {
-          const transaction = db.transaction(STORE_NAME, 'readonly');
-          const store = transaction.objectStore(STORE_NAME);
-          const index = store.index('timestamp');
-          const request = index.openCursor(null, 'prev');
-          const results = [];
-          request.onsuccess = (e) => {
-            const cursor = e.target.result;
-            if (cursor) {
-              results.push(cursor.value);
-              cursor.continue();
-            } else {
-              resolve(results);
-            }
-          };
-          request.onerror = () => reject(request.error);
-        });
-      } catch (e) {
-        console.error("Failed to get apps from DB:", e);
-        return [];
-      }
-    }
-
-    async function deleteApplication(id) {
-      try {
-        const db = await openDB();
-        return new Promise((resolve, reject) => {
-          const transaction = db.transaction(STORE_NAME, 'readwrite');
-          const store = transaction.objectStore(STORE_NAME);
-          const request = store.delete(id);
-          request.onsuccess = () => resolve();
-          request.onerror = () => reject(request.error);
-        });
-      } catch (e) {
-        console.error("Failed to delete app from DB:", e);
-      }
-    }
-
-    async function logApplication(to, name, roleType, subject, body) {
-      const record = {
-        recipient: to,
-        name: name || '',
-        role: roleType,
-        subject: subject,
-        body: body,
-        timestamp: Date.now()
-      };
-      await addApplication(record);
-      await updateHistoryList();
-    }
-
-    function toggleHistory() {
-      isHistoryOpen = !isHistoryOpen;
-      const list = document.getElementById('history-list');
-      const search = document.getElementById('search-container');
-      const arrow = document.getElementById('history-arrow');
-      
-      list.style.display = isHistoryOpen ? 'flex' : 'none';
-      search.style.display = isHistoryOpen ? 'block' : 'none';
-      arrow.classList.toggle('open', isHistoryOpen);
-      
-      if (isHistoryOpen) {
-        updateHistoryList();
-      }
-    }
-
-    function onSearchInput() {
-      const query = document.getElementById('search-input').value.trim();
-      updateHistoryList(query);
-    }
-
-    function formatDate(timestamp) {
-      const date = new Date(timestamp);
-      return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ', ' + 
-             date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
-    }
-
-    async function updateHistoryList(query = '') {
-      const listContainer = document.getElementById('history-list');
-      const countBadge = document.getElementById('history-count');
-      const items = await getApplications();
-      
-      // Update count badge
-      countBadge.textContent = items.length;
-
-      const filtered = items.filter(item => {
-        if (!query) return true;
-        const q = query.toLowerCase();
-        return (item.recipient || '').toLowerCase().includes(q) || 
-               (item.name || '').toLowerCase().includes(q) || 
-               (item.subject || '').toLowerCase().includes(q) ||
-               (item.body || '').toLowerCase().includes(q);
-      });
-
-      if (filtered.length === 0) {
-        listContainer.innerHTML = `<div class="empty-state">${query ? 'No matching logs found.' : 'No applications sent yet. Your history will appear here.'}</div>`;
-        return;
-      }
-
-      listContainer.innerHTML = filtered.map(item => {
-        const roleLabel = item.role === 'odoo' ? 'Odoo' : (item.role === 'py' ? 'Python' : 'Custom');
-        const roleClass = item.role;
-        const recipientName = item.name ? ` (${item.name})` : '';
-        
-        return `
-          <div class="history-card" onclick="viewDetails(${item.id})">
-            <div class="history-card-header">
-              <div class="history-card-meta">
-                <div class="history-card-title">${escapeHTML(item.recipient)}${escapeHTML(recipientName)}</div>
-                <div class="history-card-date">${formatDate(item.timestamp)}</div>
-              </div>
-              <span class="role-badge ${roleClass}">${roleLabel}</span>
-            </div>
-            <div class="history-actions">
-              <button class="action-btn-sm" onclick="event.stopPropagation(); viewDetails(${item.id})">📄 View Email</button>
-              <button class="action-btn-sm delete-btn" onclick="event.stopPropagation(); removeHistoryItem(${item.id})">🗑️ Delete</button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function escapeHTML(str) {
-      if (!str) return '';
-      return str.replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-      );
-    }
-
-    async function removeHistoryItem(id) {
-      if (confirm("Are you sure you want to delete this application record?")) {
-        await deleteApplication(id);
-        await updateHistoryList();
-        showToast("🗑️ Log deleted successfully.");
-      }
-    }
-
-    async function viewDetails(id) {
-      const items = await getApplications();
-      const item = items.find(x => x.id === id);
-      if (!item) return;
-
-      const overlay = document.getElementById('details-modal');
-      const body = document.getElementById('modal-body');
-      const copyBtn = document.getElementById('modal-copy-btn');
-      
-      body.textContent = `Subject: ${item.subject}\n\n${item.body}`;
-      overlay.classList.add('open');
-
-      copyBtn.onclick = () => {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(item.body)
-            .then(() => showToast("📋 Body text copied!"))
-            .catch(() => showToast("❌ Copy failed."));
-        }
-      };
-    }
-
-    function closeModal() {
-      const overlay = document.getElementById('details-modal');
-      overlay.classList.remove('open');
-    }
-
-    function onModalOverlayClick(e) {
-      if (e.target.id === 'details-modal') {
-        closeModal();
-      }
-    }
-
-    // Initialize History count on page load
-    async function initHistoryBadge() {
-      const items = await getApplications();
-      document.getElementById('history-count').textContent = items.length;
-    }
-    initHistoryBadge();
 
     async function openGmail() {
       let to, subject, body;
@@ -1125,18 +599,10 @@
 
       // Copy recipient email to clipboard synchronously immediately on user gesture context
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(to)
-          .then(() => {
-            showToast("📋 Recipient email copied! Paste in 'To' field.");
-          })
-          .catch(err => {
-            console.warn("Failed to copy email: ", err);
-          });
+        navigator.clipboard.writeText(to).catch(err => {
+          console.warn("Failed to copy email: ", err);
+        });
       }
-
-      // Log application in IndexedDB in background
-      const nameVal = (role === 'custom') ? "" : getName();
-      logApplication(to, nameVal, role, subject, body);
 
       const fileInput = document.getElementById('resume-file');
       let file = null;
@@ -1181,6 +647,7 @@
             await navigator.share(shareData);
             sendBtn.textContent = originalText;
             sendBtn.disabled = false;
+            clearFields();
             return;
           } catch (err) {
             sendBtn.textContent = originalText;
@@ -1209,9 +676,9 @@
       // 4. Fallback: standard mailto link
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(body).catch(() => {});
-        showToast("📋 Email body copied to clipboard.");
       }
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      clearFields();
     }
   </script>
 </body>
