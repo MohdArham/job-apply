@@ -597,11 +597,15 @@
         if (!to) { alert('Please enter the recipient email.'); return; }
       }
 
-      // Copy recipient email to clipboard synchronously immediately on user gesture context
+      // Copy recipient email to clipboard and WAIT for it to finish before doing any
+      // other async work (fetching the resume, opening the share sheet). Those steps
+      // shift focus away from the page, which can silently cancel an in-flight clipboard write.
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(to).catch(err => {
+        try {
+          await navigator.clipboard.writeText(to);
+        } catch (err) {
           console.warn("Failed to copy email: ", err);
-        });
+        }
       }
 
       const fileInput = document.getElementById('resume-file');
