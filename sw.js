@@ -1,4 +1,4 @@
-const CACHE = 'job-apply-v6';
+const CACHE = 'job-apply-v7';
 const ASSETS = [
   './index.html',
   './manifest.json',

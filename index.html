@@ -627,39 +627,43 @@
         if (!to) { alert('Please enter the recipient email.'); return; }
       }
 
-      // Copy recipient email to clipboard and WAIT for it to finish before doing any
-      // other async work (fetching the resume, opening the share sheet). Those steps
-      // shift focus away from the page, which can silently cancel an in-flight clipboard write.
-      const toCopied = await copyToClipboard(to);
+      const fileInput = document.getElementById('resume-file');
+
+      // Resolve the resume file to attach (manual selection, or auto-fetch the role's PDF).
+      async function resolveResumeFile() {
+        if (fileInput && fileInput.files.length > 0) {
+          return fileInput.files[0];
+        }
+        if (role !== 'custom') {
+          try {
+            const fileName = role === 'odoo' ? 'arham_odoo_2y.pdf' : 'arham_python_2y.pdf';
+            const response = await fetch(`./${fileName}`);
+            if (response.ok) {
+              const blob = await response.blob();
+              return new File([blob], fileName, { type: 'application/pdf' });
+            }
+            console.warn(`Auto-fetch of ${fileName} returned HTTP status: ${response.status}`);
+            showToast(`⚠️ Couldn't load ${fileName} (HTTP ${response.status})`);
+          } catch (e) {
+            console.warn("Auto-fetch resume failed:", e);
+            showToast(`⚠️ Resume fetch failed: ${e.message}`);
+          }
+        }
+        return null;
+      }
+
+      // Run the clipboard copy and the resume fetch CONCURRENTLY (not one after another).
+      // navigator.share() below needs to fire while user activation from the click is still
+      // fresh, so we can't afford to stack these awaits sequentially — that delay is what
+      // was pushing the attachment share past its activation window and killing it.
+      const [file, toCopied] = await Promise.all([
+        resolveResumeFile(),
+        copyToClipboard(to)
+      ]);
       if (toCopied) {
         showToast(`📋 Copied "${to}" — paste it in the To field`);
       } else {
         showToast(`⚠️ Couldn't auto-copy email. To: ${to}`);
-      }
-
-      const fileInput = document.getElementById('resume-file');
-      let file = null;
-
-      // 1. Use manually selected file if present
-      if (fileInput && fileInput.files.length > 0) {
-        file = fileInput.files[0];
-      }
-      // 2. Otherwise, try to auto-load the correct resume PDF for the role
-      else if (role !== 'custom') {
-        try {
-          const fileName = role === 'odoo' ? 'arham_odoo_2y.pdf' : 'arham_python_2y.pdf';
-          const response = await fetch(`./${fileName}`);
-          if (response.ok) {
-            const blob = await response.blob();
-            file = new File([blob], fileName, { type: 'application/pdf' });
-          } else {
-            console.warn(`Auto-fetch of ${fileName} returned HTTP status: ${response.status}`);
-            showToast(`⚠️ Couldn't load ${fileName} (HTTP ${response.status})`);
-          }
-        } catch (e) {
-          console.warn("Auto-fetch resume failed:", e);
-          showToast(`⚠️ Resume fetch failed: ${e.message}`);
-        }
       }
 
       // 3. Try to use Web Share API
