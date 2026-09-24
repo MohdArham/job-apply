@@ -581,6 +581,36 @@
       refresh();
     }
 
+    // Tries the modern Clipboard API first, falls back to the old execCommand trick
+    // for browsers/in-app WebViews (common on Android) that don't support/allow
+    // navigator.clipboard. Returns true only if the copy actually succeeded.
+    async function copyToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (err) {
+          console.warn("navigator.clipboard.writeText failed, trying fallback: ", err);
+        }
+      }
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.top = '-1000px';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        return ok;
+      } catch (err) {
+        console.warn("execCommand copy fallback failed: ", err);
+        return false;
+      }
+    }
+
     async function openGmail() {
       let to, subject, body;
       if (role === 'custom') {
@@ -600,12 +630,11 @@
       // Copy recipient email to clipboard and WAIT for it to finish before doing any
       // other async work (fetching the resume, opening the share sheet). Those steps
       // shift focus away from the page, which can silently cancel an in-flight clipboard write.
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        try {
-          await navigator.clipboard.writeText(to);
-        } catch (err) {
-          console.warn("Failed to copy email: ", err);
-        }
+      const toCopied = await copyToClipboard(to);
+      if (toCopied) {
+        showToast(`📋 Copied "${to}" — paste it in the To field`);
+      } else {
+        showToast(`⚠️ Couldn't auto-copy email. To: ${to}`);
       }
 
       const fileInput = document.getElementById('resume-file');
@@ -677,10 +706,8 @@
         }
       }
 
-      // 4. Fallback: standard mailto link
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(body).catch(() => {});
-      }
+      // 4. Fallback: standard mailto link (the mailto URI itself fills To/subject/body)
+      await copyToClipboard(body);
       window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       clearFields();
     }
